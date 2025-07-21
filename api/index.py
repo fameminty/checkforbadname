@@ -1,11 +1,10 @@
-from flask import Flask
+@app.route("/api/CheckForBadName", methods=["POST", "GET"])
+def checkforbadname():
+    rjson = request.get_json() 
+    function_result = rjson["FunctionArgument"]
+    playfab_id = rjson["CallerEntityProfile"]["Lineage"]["MasterPlayerAccountId"]
+    name = function_result["name"].upper()
+    forRoom = function_result["forRoom"]
 
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return 'Hello, World!'
-
-@app.route('/about')
-def about():
-    return 'About'
+    if forRoom == True:
+        return jsonify({"result": 0})
